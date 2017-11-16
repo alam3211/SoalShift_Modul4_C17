@@ -24,6 +24,14 @@ static int xmp_getattr(const char *path, struct stat *stbuf)
 	return 0;
 }
 
+//fungsi getext dari web
+const char *getExt (const char *fspec) {
+    char *e = strrchr (fspec, '.');
+    if (e == NULL)
+        e = ""; // fast method, could also use &(fspec[strlen(fspec)]).
+    return e;
+}
+
 static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi)
 {
   char fpath[1000];
@@ -71,8 +79,11 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset, stru
 	else sprintf(fpath, "%s%s",dirpath,path);
 	int res = 0;
  	int fd = 0 ;
-		
-	if(strstr(fpath,".pdf") == 0 || strstr(fpath,".doc") == 0 || strstr(fpath,".txt") == 0){
+
+	char *ext;
+	ext= getExt(fpath);
+
+	if(strcmp(ext,".pdf") == 0 || strcmp(ext,".doc") == 0 || strcmp(ext,".txt") == 0){
 	
 		system("zenity --error --text=\"Telah terjadi kesalahan!\nFile berisi konten berbahaya\!\" --title=\"Warning\!\"");
 		char newName[255];
