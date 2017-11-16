@@ -121,7 +121,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset, stru
 		if (cek == NULL) //cek ada tidaknya folder rahasia
 		 mkdir(path,0777);
 		
-		sprintf(masuk,sizeof(masuk),"mv %s %s",newName,path);
+		sprintf(masuk,"mv %s %s",newName,path);
 		system(masuk);
 	}
 	else
