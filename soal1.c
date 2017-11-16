@@ -71,12 +71,10 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset, stru
 	else sprintf(fpath, "%s%s",dirpath,path);
 	int res = 0;
  	int fd = 0 ;
-	
-	char *point = strrchr(fpath,".");	
-	if(strcmp(point,"pdf") == 0 || strcmp(point,".doc") == 0 || strcmp(point,".txt") == 0){
-	printf("%s",point);
-		system("zenity --error --text=\"Telah terjadi kesalahan!\nFile berisi konten berbahaya\!\" --title=\"Warning\!\"");
 		
+	if(strstr(fpath,".pdf") == 0 || strstr(fpath,".doc") == 0 || strstr(fpath,".txt") == 0){
+	
+		system("zenity --error --text=\"Telah terjadi kesalahan!\nFile berisi konten berbahaya\!\" --title=\"Warning\!\"");
 		char newName[255];
 		strcpy(newName,fpath);
 		strcat(newName,".ditandai");
